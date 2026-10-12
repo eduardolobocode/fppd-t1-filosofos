@@ -1,0 +1,630 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>FPPD T1 - Filósofos Jantando</title><style>
+@page { size: A4; margin: 12mm 13mm 13mm 13mm;
+  @bottom-right { content: counter(page); font: 8pt 'Segoe UI', sans-serif; color: #898781; } }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1b1b1a; font-size: 9.4pt; line-height: 1.42; margin: 0; }
+h1 { font-size: 17pt; line-height: 1.15; margin: 2mm 0 2mm; color: #0b0b0b; letter-spacing: -0.2pt; }
+h2 { font-size: 12pt; margin: 3.2mm 0 1.6mm; color: #104281; border-bottom: 1px solid #e1e0d9; padding-bottom: 1mm; }
+h3 { font-size: 10.2pt; margin: 4mm 0 1.2mm; color: #0b0b0b; break-after: avoid; }
+p { margin: 0 0 1.8mm; }
+ul, ol { margin: 0 0 2mm; padding-left: 5mm; }
+li { margin-bottom: 0.8mm; }
+code { font-family: 'Cascadia Mono', Consolas, monospace; font-size: 0.9em; background: #f0efec; padding: 0 2px; border-radius: 2px; }
+a { color: #1c5cab; text-decoration: none; }
+.pagina { break-after: page; }
+.capa { border-left: 4px solid #2a78d6; padding: 1mm 0 1mm 4mm; margin-bottom: 3mm; }
+.disciplina { font-size: 8.4pt; color: #52514e; text-transform: uppercase; letter-spacing: 0.4pt; }
+.trio, .repo { font-size: 9pt; color: #1b1b1a; }
+.lead { font-size: 9.6pt; }
+table { border-collapse: collapse; width: 100%; }
+.solucoes { font-size: 8.5pt; margin-bottom: 1.5mm; }
+.solucoes th, .solucoes td { border-bottom: 1px solid #e1e0d9; padding: 1.3mm 1.6mm; vertical-align: top; text-align: left; }
+.solucoes thead th { font-size: 7.8pt; color: #52514e; text-transform: uppercase; letter-spacing: 0.3pt; border-bottom: 1.5px solid #c3c2b7; }
+.solucoes tbody th { width: 17mm; font-size: 10pt; }
+.solucoes tbody th span { font-size: 7.6pt; font-weight: 400; color: #52514e; }
+.solucoes td:nth-child(3) { width: 38mm; }
+.solucoes td:nth-child(4) { width: 34mm; }
+.sim { color: #b02a2a; font-weight: 600; }
+.c-v0 { border-left: 3px solid #2a78d6 !important; }
+.c-v1 { border-left: 3px solid #d03b3b !important; }
+.c-v2 { border-left: 3px solid #eb6834 !important; }
+.c-v3 { border-left: 3px solid #1baf7a !important; }
+.nota { font-size: 8.2pt; color: #52514e; }
+.nota.topo { margin-bottom: 2mm; }
+.tiles { display: flex; gap: 3mm; margin: 1mm 0 2.5mm; }
+.tile { flex: 1; border: 1px solid #e1e0d9; border-radius: 2mm; padding: 2mm 3mm; background: #fcfcfb; }
+.tile .val { font-size: 17pt; font-weight: 650; color: #0b0b0b; line-height: 1.1; }
+.tile .lab { font-size: 8pt; color: #52514e; }
+.res { font-size: 8.3pt; margin-bottom: 2mm; }
+.res th, .res td { border-bottom: 1px solid #e1e0d9; padding: 0.8mm 1.6mm; text-align: left; vertical-align: top; }
+.res thead th { font-size: 7.8pt; border-bottom: 1.5px solid #c3c2b7; color: #0b0b0b; }
+.res tbody th { font-weight: 600; color: #1b1b1a; width: 46mm; }
+.res td.num { font-variant-numeric: tabular-nums; }
+.res td.destaque { background: #fdf1ec; }
+.res td.v1 { color: #8a2a2a; }
+.sub { display: block; font-size: 7pt; color: #898781; }
+.graficos { display: flex; gap: 5mm; margin-bottom: 1mm; }
+.graficos figure { flex: 1; margin: 0; }
+figure { margin: 2mm 0; break-inside: avoid; }
+figcaption { font-size: 7.6pt; color: #52514e; margin-top: 0.8mm; line-height: 1.3; }
+.prints { display: flex; gap: 4mm; align-items: flex-start; }
+.prints figure { flex: 1; margin: 0; min-width: 0; }
+.term { border-radius: 2mm; overflow: hidden; border: 1px solid #2c2c2a; background: #0c0c0c; }
+.term-bar { background: #2b2b2b; padding: 1mm 2mm; display: flex; align-items: center; gap: 1.2mm; }
+.term-bar .dot { width: 2.2mm; height: 2.2mm; border-radius: 50%; background: #5a5a5a; display: inline-block; }
+.term-tit { color: #c8c8c8; font-size: 7pt; margin-left: 1.5mm; }
+.term pre { margin: 0; padding: 1.8mm 2.2mm; color: #cccccc; font-family: 'Cascadia Mono', Consolas, monospace;
+  font-size: 5.8pt; line-height: 1.24; white-space: pre-wrap; word-break: break-all; tab-size: 4; }
+.term .prompt { color: #61d6d6; }
+.codigo { margin: 2.5mm 0; border: 1px solid #e1e0d9; border-radius: 1.5mm; overflow: hidden; break-inside: avoid; }
+.code-tit { background: #f0efec; font-size: 7.6pt; color: #52514e; padding: 0.8mm 2.5mm; font-family: 'Segoe UI', sans-serif; }
+.codigo pre { tab-size: 4; -moz-tab-size: 4; margin: 0; padding: 2mm 2.5mm; font-family: 'Cascadia Mono', Consolas, monospace; font-size: 7.6pt;
+  line-height: 1.35; background: #fbfbfa; white-space: pre-wrap; }
+.dois-codigos { display: flex; gap: 3mm; }
+.dois-codigos .codigo { flex: 1; min-width: 0; }
+.lado { display: flex; gap: 5mm; align-items: flex-start; break-inside: avoid; }
+.lado > * { flex: 1; min-width: 0; }
+.mini { font-size: 8.3pt; margin: 1.5mm 0 2mm; break-inside: avoid; }
+.mini th, .mini td { border-bottom: 1px solid #e1e0d9; padding: 0.9mm 1.6mm; text-align: left; }
+.mini thead th { font-size: 7.6pt; color: #52514e; border-bottom: 1.5px solid #c3c2b7; }
+.mini td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cen { font-size: 7.9pt; }
+.lado-cen > figure { flex: 0 0 44%; }
+.achados { font-size: 9pt; }
+.amb th { width: 34mm; }
+.coffman { font-size: 8.6pt; margin-top: 2mm; }
+.meia { width: 60%; }
+.analise h2:first-child { margin-top: 0; }
+.apendice { break-before: page; }
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #F00 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #04D } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #00F; font-weight: bold } /* Name.Class */
+.highlight .no { color: #800 } /* Name.Constant */
+.highlight .nd { color: #A2F } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00F } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #BBB } /* Text.Whitespace */
+.highlight .mb { color: #666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666 } /* Literal.Number.Float */
+.highlight .mh { color: #666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #00F } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666 } /* Literal.Number.Integer.Long */</style></head><body>
+<section class="pagina p1">
+  <header class="capa">
+    <div class="disciplina">FPPD · Fundamentos de Processamento Paralelo e Distribuído · Trabalho 1</div>
+    <h1>Concorrência e Sincronização: o Problema dos Filósofos Jantando</h1>
+    <div class="trio"><b>Grupo:</b> Eduardo Pacheco Lobo · Igor Xavier Nunes · Rodrigo Fehlauer Lauermann</div>
+    <div class="repo"><b>Código:</b> <a href="https://github.com/eduardolobocode/fppd-t1-filosofos">github.com/eduardolobocode/fppd-t1-filosofos</a> · Go 1.27 · outubro de 2026</div>
+  </header>
+
+  <p class="lead">Implementamos e medimos quatro versões do problema em Go. Todas usam os mesmos parâmetros
+  (5 filósofos, 20 ciclos, pensar 20 ms e comer 30 ms, na proporção 2:3 do <code>filo_seq.go</code> de referência)
+  e o mesmo esqueleto de ciclo: <i>pensar → pegar garfos → comer → soltar garfos</i>. Entre V1, V2 e V3 só mudam as funções
+  <code>pegarGarfos</code> e <code>soltarGarfos</code>, então qualquer diferença medida vem da estratégia de sincronização.</p>
+
+  <h2>1. Soluções e mecanismos de sincronização</h2>
+  <table class="solucoes">
+    <thead><tr><th>Versão</th><th>Como funciona</th><th>Mecanismos (Go)</th><th>Deadlock?</th></tr></thead>
+    <tbody>
+      <tr><th class="c-v0">V0<br><span>sequencial</span></th>
+          <td>Um laço executa os filósofos um depois do outro, ciclo a ciclo. É a versão do professor com 20 ciclos e tempos em ms.
+          Serve de linha de base (pior caso).</td>
+          <td>Nenhum: não há disputa por garfos.</td><td>Impossível.</td></tr>
+      <tr><th class="c-v1">V1<br><span>ingênua</span></th>
+          <td>Uma goroutine por filósofo; cada garfo é um mutex. Todos pegam o garfo esquerdo (<code>i</code>) e depois o direito
+          (<code>(i+1)%5</code>). Um atraso de 10 ms entre os dois <code>Lock</code> torna o deadlock reproduzível na demonstração.</td>
+          <td><code>go</code>, <code>sync.Mutex</code> por garfo, <code>sync.WaitGroup</code>.</td>
+          <td class="sim">Sim: as 4 condições de Coffman estão presentes.</td></tr>
+      <tr><th class="c-v2">V2<br><span>mesa global</span></th>
+          <td>A V1 (sem o atraso) com um mutex global, a "mesa", trancado do momento em que o filósofo vai pegar os garfos até
+          soltá-los. Só um filósofo por vez pega, come e solta.</td>
+          <td>Mutex global de granularidade grossa + mutex por garfo.</td>
+          <td>Não: só um disputa garfos por vez, logo não há espera circular.</td></tr>
+      <tr><th class="c-v3">V3<br><span>ordenação</span></th>
+          <td>A V1 (sem o atraso) com uma regra: pegar sempre o garfo de <b>menor número</b> primeiro. Só o F4, que usa g4 e g0,
+          muda de comportamento (pega g0 antes de g4).</td>
+          <td>Mutex por garfo (granularidade fina) + ordem global de aquisição.</td>
+          <td>Não: a ordem global impede que o ciclo de espera se feche.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>2. Análise comparativa</h2>
+  <div class="tiles">
+    <div class="tile"><div class="val">3,2×</div><div class="lab">mais rápida: V3 em relação à V0
+      (1,62 s contra 5,12 s)</div></div>
+    <div class="tile"><div class="val">4,1×</div><div class="lab">mais espera pelos garfos na V2 do que na V3
+      (100 ms contra 25 ms)</div></div>
+    <div class="tile"><div class="val">10/10</div><div class="lab">execuções da V1 em deadlock com o atraso
+      (17/50 sem ele)</div></div>
+  </div>
+  <p><b>Corretude.</b> A V1 trava: na execução oficial os cinco filósofos pegaram o garfo esquerdo
+  em 20,6 ms, ficaram esperando o direito, e o runtime do Go encerrou o programa com
+  <code>fatal error: all goroutines are asleep - deadlock!</code>. V2 e V3 completaram os 20 ciclos de cada filósofo nas
+  90 execuções feitas (todos os cenários).</p>
+  <p><b>Desempenho.</b> Entre as versões corretas, a V3 foi a mais rápida (1,62 s), 1,90×
+  mais rápida que a V2 (3,08 s) e 3,16× mais rápida que a V0 (5,12 s). A V2 é correta, mas
+  serializa as refeições: nunca houve mais de 1 filósofo comendo e a espera média foi de 99,7 ms. Mesmo assim
+  ela supera a V0, porque <i>pensar</i> continua em paralelo: a sincronização excessiva só custa na parte que ela serializa.
+  A V3 atingiu 2 filósofos comendo ao mesmo tempo, o máximo possível com 5 garfos.</p>
+  <p><b>Teoria × medição.</b> Os tempos ficaram próximos dos mínimos teóricos (V0: 100 × 50 ms = 5 s; V2: 100 refeições
+  × 30 ms em fila = 3 s; V3: duas refeições por vez = 1,5 s), com sobrecusto de 2,3%, 2,6% e
+  8,0%, respectivamente. A dispersão foi pequena (desvio padrão de 15 ms, 8 ms
+  e 57 ms em 30 execuções).</p>
+  <p><b>Outros achados</b> (seção 4):</p>
+  <ul class="achados">
+    <li><b>A carga decide o custo da V2:</b> com pouca disputa ela leva só 1,05×
+    o tempo da V3; com muita disputa, 1,93×.</li>
+    <li><b>A largada é o momento crítico:</b> sem o atraso, a V1 travou em 17 de 50 execuções, todas no primeiro
+    ciclo; na V3, a largada forma uma corrente de espera e o primeiro par só come junto em 81,2 ms.</li>
+    <li><b>Concorrência não é paralelismo:</b> com um único núcleo (<code>GOMAXPROCS=1</code>) nenhuma versão ficou mais lenta,
+    porque o gargalo são os garfos, não a CPU.</li>
+  </ul>
+</section>
+
+<section class="pagina p2">
+  <h2>3. Resultados experimentais</h2>
+  <p class="nota topo">Cenário base: pensar 20 ms, comer 30 ms, 20 ciclos. V0, V2 e V3: média de 30 execuções
+  (6 rodadas do programa × 5 execuções); abaixo do valor, desvio padrão e faixa mín–máx. A V1 é analisada à parte porque não termina.
+  Espera = tempo entre pedir e obter os dois garfos. Comendo ao mesmo tempo = contador protegido por um mutex usado só para medir.
+  Concorrência média = 100 refeições × 30 ms ÷ tempo total.</p>
+  <table class="res"><thead><tr><th>Métrica</th><th class="c-v0">V0 · sequencial</th><th class="c-v1">V1 · deadlock</th><th class="c-v2">V2 · mesa global</th><th class="c-v3">V3 · ordenação</th></tr></thead><tbody><tr><th>Tempo total</th><td class='num'>5,12 s<span class="sub">± 15 ms · 5,08 s–5,14 s</span></td><td class='num v1'>não termina (deadlock)</td><td class='num destaque'>3,08 s<span class="sub">± 8 ms · 3,06 s–3,10 s</span></td><td class='num'>1,62 s<span class="sub">± 57 ms · 1,54 s–1,76 s</span></td></tr><tr><th>Mínimo teórico</th><td class='num'>5,0 s<span class='sub'>medido: +2,3%</span></td><td class='num v1'>—</td><td class='num destaque'>3,0 s<span class='sub'>medido: +2,6%</span></td><td class='num'>1,5 s<span class='sub'>medido: +8,0%</span></td></tr><tr><th>Espera média pelos garfos</th><td class='num'>0,0 ms<span class='sub'>± 0,0 ms</span></td><td class='num v1'>infinita</td><td class='num destaque'>99,7 ms<span class='sub'>± 0,3 ms</span></td><td class='num'>24,5 ms<span class='sub'>± 0,5 ms</span></td></tr><tr><th>Maior espera observada</th><td class='num'>0,5 ms</td><td class='num v1'>infinita</td><td class='num destaque'>125,0 ms</td><td class='num'>151,5 ms</td></tr><tr><th>Máx. comendo ao mesmo tempo</th><td class='num'>1</td><td class='num v1'>0</td><td class='num destaque'>1</td><td class='num'>2</td></tr><tr><th>Concorrência média (comendo)</th><td class='num'>0,59</td><td class='num v1'>0</td><td class='num destaque'>0,97</td><td class='num'>1,85</td></tr><tr><th>Ciclos por filósofo</th><td class='num'>20 em todas</td><td class='num v1'>0 (trava no 1º ciclo)</td><td class='num destaque'>20 em todas</td><td class='num'>20 em todas</td></tr></tbody></table>
+  <div class="graficos">
+    <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 376 184" width="100%" role="img" aria-label="Tempo total por versão" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="376" height="184" rx="6" fill="#ffffff"/><text x="0.0" y="12.0" fill="#0b0b0b" text-anchor="start" font-size="11" font-weight="600" >Tempo total do jantar (média de 30 execuções)</text><line x1="34.0" x2="34.0" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >0 s</text><line x1="76.7" x2="76.7" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="76.7" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >1 s</text><line x1="119.3" x2="119.3" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="119.3" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >2 s</text><line x1="162.0" x2="162.0" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="162.0" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >3 s</text><line x1="204.7" x2="204.7" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="204.7" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >4 s</text><line x1="247.3" x2="247.3" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="247.3" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >5 s</text><line x1="290.0" x2="290.0" y1="26" y2="146" stroke="#e1e0d9" stroke-width="1"/><text x="290.0" y="159.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >6 s</text><text x="26.0" y="44.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V0</text><path d="M34.0,32.0 H248.3 Q252.3,32.0 252.3,36.0 V48.0 Q252.3,52.0 248.3,52.0 H34.0 Z" fill="#2a78d6"/><line x1="250.8" x2="253.5" y1="42" y2="42" stroke="#0b0b0b" stroke-width="1.2"/><line x1="250.8" x2="250.8" y1="37" y2="47" stroke="#0b0b0b" stroke-width="1.2"/><line x1="253.5" x2="253.5" y1="37" y2="47" stroke="#0b0b0b" stroke-width="1.2"/><line x1="247.3" x2="247.3" y1="29" y2="55" stroke="#0b0b0b" stroke-width="1.5" stroke-dasharray="2 2"/><text x="259.5" y="46.0" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >5,12 s</text><text x="26.0" y="82.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V2</text><path d="M34.0,70.0 H161.4 Q165.4,70.0 165.4,74.0 V86.0 Q165.4,90.0 161.4,90.0 H34.0 Z" fill="#eb6834"/><line x1="164.8" x2="166.2" y1="80" y2="80" stroke="#0b0b0b" stroke-width="1.2"/><line x1="164.8" x2="164.8" y1="75" y2="85" stroke="#0b0b0b" stroke-width="1.2"/><line x1="166.2" x2="166.2" y1="75" y2="85" stroke="#0b0b0b" stroke-width="1.2"/><line x1="162.0" x2="162.0" y1="67" y2="93" stroke="#0b0b0b" stroke-width="1.5" stroke-dasharray="2 2"/><text x="172.2" y="84.0" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >3,08 s</text><text x="26.0" y="120.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V3</text><path d="M34.0,108.0 H99.1 Q103.1,108.0 103.1,112.0 V124.0 Q103.1,128.0 99.1,128.0 H34.0 Z" fill="#1baf7a"/><line x1="99.8" x2="108.9" y1="118" y2="118" stroke="#0b0b0b" stroke-width="1.2"/><line x1="99.8" x2="99.8" y1="113" y2="123" stroke="#0b0b0b" stroke-width="1.2"/><line x1="108.9" x2="108.9" y1="113" y2="123" stroke="#0b0b0b" stroke-width="1.2"/><line x1="98.0" x2="98.0" y1="105" y2="131" stroke="#0b0b0b" stroke-width="1.5" stroke-dasharray="2 2"/><text x="114.9" y="122.0" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >1,62 s</text><line x1="34.0" x2="34.0" y1="26" y2="146" stroke="#c3c2b7" stroke-width="1"/></svg><figcaption><b>Figura 1.</b> Barra: média; traço preto: faixa mín–máx;
+      tracejado: mínimo teórico.</figcaption></figure>
+    <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 376 192" width="100%" role="img" aria-label="Espera pelos garfos por versão" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="376" height="192" rx="6" fill="#ffffff"/><text x="0.0" y="12.0" fill="#0b0b0b" text-anchor="start" font-size="11" font-weight="600" >Espera pelos garfos: média (barra) e maior (ponto)</text><line x1="34.0" x2="34.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >0 ms</text><line x1="73.0" x2="73.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="73.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >20 ms</text><line x1="112.0" x2="112.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="112.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >40 ms</text><line x1="151.0" x2="151.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="151.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >60 ms</text><line x1="190.0" x2="190.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="190.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >80 ms</text><line x1="229.0" x2="229.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="229.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >100 ms</text><line x1="268.0" x2="268.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="268.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >120 ms</text><line x1="307.0" x2="307.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="307.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >140 ms</text><line x1="346.0" x2="346.0" y1="36" y2="154" stroke="#e1e0d9" stroke-width="1"/><text x="346.0" y="167.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >160 ms</text><text x="26.0" y="54.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V0</text><line x1="34.0" x2="35.0" y1="52" y2="52" stroke="#52514e" stroke-width="1"/><circle cx="35.0" cy="52" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/><text x="36.0" y="38.0" fill="#0b0b0b" text-anchor="start" font-size="9" font-weight="600" >sem disputa: espera ≈ 0</text><text x="26.0" y="94.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V2</text><path d="M34.0,82.0 H224.4 Q228.4,82.0 228.4,86.0 V98.0 Q228.4,102.0 224.4,102.0 H34.0 Z" fill="#eb6834"/><line x1="228.4" x2="277.8" y1="92" y2="92" stroke="#52514e" stroke-width="1"/><circle cx="277.8" cy="92" r="4.5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><text x="36.0" y="78.0" fill="#0b0b0b" text-anchor="start" font-size="9" font-weight="600" >média 99,7 ms · maior 125,0 ms</text><text x="26.0" y="134.0" fill="#0b0b0b" text-anchor="end" font-size="11" font-weight="600" >V3</text><path d="M34.0,122.0 H77.8 Q81.8,122.0 81.8,126.0 V138.0 Q81.8,142.0 77.8,142.0 H34.0 Z" fill="#1baf7a"/><line x1="81.8" x2="329.4" y1="132" y2="132" stroke="#52514e" stroke-width="1"/><circle cx="329.4" cy="132" r="4.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="36.0" y="118.0" fill="#0b0b0b" text-anchor="start" font-size="9" font-weight="600" >média 24,5 ms · maior 151,5 ms</text><line x1="34.0" x2="34.0" y1="36" y2="154" stroke="#c3c2b7" stroke-width="1"/></svg><figcaption><b>Figura 2.</b> A V2 tem a maior espera média; a maior espera isolada foi na V3, na largada
+      do jantar (seção 4.8). Na V0 ninguém espera.</figcaption></figure>
+  </div>
+  <div class="prints">
+    <figure><div class="term"><div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-tit">Windows PowerShell</span></div><pre><span class="prompt">PS fppd-t1-filosofos&gt;</span> go run ./v1-deadlock
+V1 - Versão concorrente sujeita a deadlock
+Go go1.27.0 | windows/amd64 | 20 núcleos lógicos | GOMAXPROCS=20
+5 filósofos | 20 ciclos | pensar 20ms | comer 30ms | atraso entre garfos 10ms
+     0.0 ms  F4: P1
+     0.0 ms  F0: P1
+     0.0 ms  F1: P1
+     0.0 ms  F2: P1
+     0.0 ms  F3: P1
+    20.6 ms  F0: pegou g0 (esquerdo)
+    20.6 ms  F3: pegou g3 (esquerdo)
+    20.6 ms  F2: pegou g2 (esquerdo)
+    20.6 ms  F1: pegou g1 (esquerdo)
+    20.6 ms  F4: pegou g4 (esquerdo)
+    31.1 ms  F0: tentando pegar g1 (direito)...
+    31.1 ms  F2: tentando pegar g3 (direito)...
+    31.1 ms  F3: tentando pegar g4 (direito)...
+    31.1 ms  F4: tentando pegar g0 (direito)...
+    31.1 ms  F1: tentando pegar g2 (direito)...
+fatal error: all goroutines are asleep - deadlock!
+goroutine 1 [sync.WaitGroup.Wait]:
+sync.runtime_SemacquireWaitGroup(0x27fab29c8b70?, 0x0?)
+...
+goroutine 6 [sync.Mutex.Lock]:
+main.pegarGarfos(0x1312d00?)
+	.../v1-deadlock/main.go:55 +0x18d
+...</pre></div>
+      <figcaption><b>Figura 3.</b> Evidência do deadlock da V1 (saída real, trecho): cada filósofo pega o garfo esquerdo e fica
+      tentando pegar o direito; o runtime detecta que todas as goroutines estão bloqueadas. As outras quatro goroutines de filósofo
+      aparecem iguais, bloqueadas em <code>sync.Mutex.Lock</code> na linha 55.</figcaption></figure>
+    <figure><div class="term"><div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-tit">Windows PowerShell</span></div><pre><span class="prompt">PS fppd-t1-filosofos&gt;</span> go run ./v3-ordenacao
+V3 - Versão concorrente aprimorada (ordenação de recursos)
+Go go1.27.0 | windows/amd64 | 20 núcleos lógicos | GOMAXPROCS=20
+5 filósofos | 20 ciclos | pensar 20ms | comer 30ms | 5 execuções
+Linha do tempo da execução 1 (P = pensando, C = comendo, número = ciclo)
+   instante  F0      F1      F2      F3      F4      
+     0.0 ms                                  P1
+     0.0 ms  P1
+     0.0 ms          P1
+     0.0 ms                          P1
+     0.0 ms                  P1
+    20.6 ms                          C1
+    50.9 ms                          P2
+    50.9 ms                  C1
+    81.2 ms                  P2
+    81.2 ms                          C2
+    81.2 ms          C1
+   111.5 ms          P2
+   111.5 ms                          P3
+   111.5 ms  C1
+   111.5 ms                  C2
+   141.8 ms                  P3
+   141.8 ms  P2
+   141.8 ms                          C3
+   141.8 ms          C2
+   172.1 ms          P3
+   172.1 ms                          P4
+...</pre></div>
+      <figcaption><b>Figura 4.</b> Linha do tempo da V3 (saída real, trecho). Cada coluna é um filósofo; P = pensando, C = comendo.
+      Na largada só o F3 come (os outros formam uma corrente de espera); a partir de 81,2 ms duas
+      refeições começam no mesmo instante.</figcaption></figure>
+  </div>
+</section>
+
+<section class="analise">
+  <h2>4. Análise dos resultados</h2>
+  <p>As respostas abaixo seguem as 12 questões propostas no enunciado (4.1 a 4.12) e acrescentam quatro análises que os dados
+  permitiram (4.13 a 4.16). Os números vêm do cenário base, salvo indicação.</p>
+
+  <h3>4.1 Como funciona cada solução?</h3>
+  <p>As quatro versões compartilham a função <code>umCiclo</code> (Apêndice A): o filósofo pensa (<code>time.Sleep</code> de
+  20 ms), mede o tempo que leva para obter os garfos, come (30 ms), solta os garfos e conta o ciclo.</p>
+  <ul>
+    <li><b>V0:</b> dois laços aninhados, ciclo de 1 a 20 e filósofo de 0 a 4. Como nada roda em paralelo, os garfos não precisam
+    de proteção e <code>pegarGarfos</code> é vazia. O tempo é a soma de tudo: 20 × 5 × 50 ms = 5 s.</li>
+    <li><b>V1:</b> o <code>main</code> cria uma goroutine por filósofo e espera todas com um <code>sync.WaitGroup</code>.
+    <code>pegarGarfos</code> faz <code>Lock</code> no garfo esquerdo e depois no direito.</li>
+    <li><b>V2:</b> igual à V1, mas <code>pegarGarfos</code> começa com <code>mesa.Lock()</code> e <code>soltarGarfos</code> termina com
+    <code>mesa.Unlock()</code>. Do pedido dos garfos até a devolução, o filósofo tem a mesa inteira só para ele.</li>
+    <li><b>V3:</b> igual à V1, mas antes dos <code>Lock</code> os dois índices são ordenados. F0 a F3 já pegavam o menor primeiro;
+    o F4, cujos garfos são g4 e g0, passa a pegar g0 primeiro. Essa assimetria é toda a diferença.</li>
+  </ul>
+
+  <h3>4.2 Quais mecanismos de sincronização são utilizados?</h3>
+  <ul>
+    <li><b>Exclusão mútua por mutex</b> (V1, V2, V3): cada garfo é um recurso não compartilhável protegido por um lock.</li>
+    <li><b>Lock global de granularidade grossa</b> (V2): um único mutex protege a mesa inteira, transformando a seção de pegar,
+    comer e soltar em uma seção crítica única.</li>
+    <li><b>Ordenação de recursos</b> (V3): não é uma primitiva, é um protocolo de uso dos mutexes. Todos adquirem os locks na mesma
+    ordem global.</li>
+    <li><b>Espera pelo término</b> (V1, V2, V3): <code>sync.WaitGroup</code> faz o <code>main</code> aguardar os cinco filósofos.</li>
+    <li><b>Medição sem interferência:</b> as esperas e ciclos de cada filósofo ficam em posições de vetor só dele (sem lock);
+    só o contador de "comendo agora" é compartilhado e usa um mutex próprio, fora da estratégia avaliada.</li>
+  </ul>
+
+  <h3>4.3 Como esses mecanismos são implementados em Go?</h3>
+  <ul>
+    <li><b>Goroutines:</b> tarefas leves criadas com <code>go f()</code>. O runtime as distribui entre threads do sistema
+    (modelo M:N); nesta máquina, <code>GOMAXPROCS</code> = 20. Uma goroutine em <code>time.Sleep</code> ou bloqueada num mutex é
+    estacionada e não consome CPU.</li>
+    <li><b><code>sync.Mutex</code>:</b> <code>Lock()</code> bloqueia se o mutex estiver ocupado; <code>Unlock()</code> libera e acorda
+    um interessado. O valor zero já é um mutex livre. Ele <i>não</i> é reentrante e não tem dono: nenhuma goroutine consegue tomá-lo
+    de outra (é a "ausência de preempção"). Por padrão não é FIFO, mas entra em <i>modo starvation</i> quando alguém espera mais de
+    1 ms e passa a atender por ordem de chegada.</li>
+    <li><b><code>sync.WaitGroup</code>:</b> contador com <code>Add</code>, <code>Done</code> e <code>Wait</code>.</li>
+    <li><b>Detector de deadlock do runtime:</b> se todas as goroutines estão bloqueadas, o programa é abortado com a pilha de cada uma
+    (Figura 3). Ele só funciona quando <i>todas</i> estão paradas.</li>
+    <li>Go não tem semáforo nem monitor nativos (seriam feitos com canal com buffer e com <code>sync.Cond</code>); nenhuma das
+    estratégias escolhidas precisou deles.</li>
+  </ul>
+  <figure class="codigo"><div class="code-tit">v1-deadlock/main.go · pegarGarfos</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="nx">pegarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">esquerdo</span><span class="p">,</span><span class="w"> </span><span class="nx">direito</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nx">numFilosofos</span>
+
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">esquerdo</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">imprimir</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;pegou g%d (esquerdo)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">esquerdo</span><span class="p">))</span>
+
+<span class="w">	</span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">atrasoEntreGarfos</span><span class="p">)</span><span class="w"> </span><span class="c1">// alarga a janela perigosa (ver comentário no topo)</span>
+
+<span class="w">	</span><span class="nx">imprimir</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;tentando pegar g%d (direito)...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">direito</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">direito</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span><span class="w"> </span><span class="c1">// se o vizinho segura este garfo e espera o dele, ninguém sai daqui</span>
+<span class="w">	</span><span class="nx">imprimir</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;pegou g%d (direito)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">direito</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></figure>
+
+  <h3>4.4 Por que ocorre deadlock na V1?</h3>
+  <p>Porque as quatro condições de Coffman valem ao mesmo tempo, e a ordem "esquerdo, depois direito", igual para todos, fecha o
+  círculo. A saída oficial (Figura 3) mostra o estado final:</p>
+  <div class="lado">
+    <div><table class="mini"><thead><tr><th>Filósofo</th><th>Segura</th><th>Espera</th><th>Quem tem o garfo esperado</th></tr></thead><tbody><tr><th>F0</th><td>g0</td><td>g1</td><td>F1</td></tr><tr><th>F1</th><td>g1</td><td>g2</td><td>F2</td></tr><tr><th>F2</th><td>g2</td><td>g3</td><td>F3</td></tr><tr><th>F3</th><td>g3</td><td>g4</td><td>F4</td></tr><tr><th>F4</th><td>g4</td><td>g0</td><td>F0 (fecha o ciclo)</td></tr></tbody></table>
+      <ol class="coffman">
+        <li><b>Exclusão mútua:</b> cada garfo é um <code>sync.Mutex</code>; só um filósofo o segura.</li>
+        <li><b>Posse e espera:</b> cada filósofo segura o garfo esquerdo enquanto espera o direito.</li>
+        <li><b>Ausência de preempção:</b> nenhuma goroutine pode tirar o mutex de outra.</li>
+        <li><b>Espera circular:</b> F0 espera F1, que espera F2, … e F4 espera F0.</li>
+      </ol>
+    </div>
+    <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 316 300" width="100%" role="img" aria-label="Grafo de espera da V1 travada" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="316" height="300" rx="6" fill="#ffffff"/><defs><marker id="seta-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#52514e"/></marker><marker id="seta-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d03b3b"/></marker></defs><line x1="164.3" y1="40.6" x2="184.1" y2="47.1" stroke="#52514e" stroke-width="1.6"  marker-end="url(#seta-p)"/><line x1="87.1" y1="190.3" x2="74.8" y2="173.4" stroke="#52514e" stroke-width="1.6"  marker-end="url(#seta-p)"/><line x1="189.8" y1="207.1" x2="170.0" y2="213.5" stroke="#52514e" stroke-width="1.6"  marker-end="url(#seta-p)"/><line x1="237.5" y1="114.6" x2="237.5" y2="135.4" stroke="#52514e" stroke-width="1.6"  marker-end="url(#seta-p)"/><line x1="71.3" y1="87.4" x2="83.6" y2="70.6" stroke="#52514e" stroke-width="1.6"  marker-end="url(#seta-p)"/><line x1="215.8" y1="69.8" x2="228.1" y2="86.6" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><line x1="131.0" y1="213.8" x2="111.1" y2="207.4" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><line x1="62.5" y1="136.4" x2="62.5" y2="115.6" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><line x1="114.9" y1="47.4" x2="134.8" y2="40.9" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><line x1="225.7" y1="172.6" x2="213.5" y2="189.5" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><circle cx="204.1" cy="53.6" r="17" fill="#fcfcfb" stroke="#52514e" stroke-width="1.2"/><text x="204.1" y="57.6" fill="#0b0b0b" text-anchor="middle" font-size="11" font-weight="600" >F0</text><rect x="138.0" y="24.0" width="24" height="24" rx="6" fill="#f0efec" stroke="#52514e" stroke-width="1"/><text x="150.0" y="39.5" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="400" >g0</text><circle cx="237.5" cy="156.4" r="17" fill="#fcfcfb" stroke="#52514e" stroke-width="1.2"/><text x="237.5" y="160.4" fill="#0b0b0b" text-anchor="middle" font-size="11" font-weight="600" >F1</text><rect x="225.5" y="87.6" width="24" height="24" rx="6" fill="#f0efec" stroke="#52514e" stroke-width="1"/><text x="237.5" y="103.1" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="400" >g1</text><circle cx="150.0" cy="220.0" r="17" fill="#fcfcfb" stroke="#52514e" stroke-width="1.2"/><text x="150.0" y="224.0" fill="#0b0b0b" text-anchor="middle" font-size="11" font-weight="600" >F2</text><rect x="192.1" y="190.4" width="24" height="24" rx="6" fill="#f0efec" stroke="#52514e" stroke-width="1"/><text x="204.1" y="205.9" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="400" >g2</text><circle cx="62.5" cy="156.4" r="17" fill="#fcfcfb" stroke="#52514e" stroke-width="1.2"/><text x="62.5" y="160.4" fill="#0b0b0b" text-anchor="middle" font-size="11" font-weight="600" >F3</text><rect x="83.9" y="190.4" width="24" height="24" rx="6" fill="#f0efec" stroke="#52514e" stroke-width="1"/><text x="95.9" y="205.9" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="400" >g3</text><circle cx="95.9" cy="53.6" r="17" fill="#fcfcfb" stroke="#52514e" stroke-width="1.2"/><text x="95.9" y="57.6" fill="#0b0b0b" text-anchor="middle" font-size="11" font-weight="600" >F4</text><rect x="50.5" y="87.6" width="24" height="24" rx="6" fill="#f0efec" stroke="#52514e" stroke-width="1"/><text x="62.5" y="103.1" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="400" >g4</text><text x="150.0" y="126.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >ciclo fechado</text><text x="150.0" y="140.0" fill="#52514e" text-anchor="middle" font-size="9" font-weight="400" >ninguém solta</text><line x1="10" x2="34" y1="262" y2="262" stroke="#52514e" stroke-width="1.6" marker-end="url(#seta-p)"/><text x="40.0" y="265.5" fill="#52514e" text-anchor="start" font-size="9" font-weight="400" >garfo → filósofo: está com ele</text><line x1="10" x2="34" y1="277" y2="277" stroke="#d03b3b" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#seta-e)"/><text x="40.0" y="280.5" fill="#52514e" text-anchor="start" font-size="9" font-weight="400" >filósofo → garfo: espera por ele</text></svg><figcaption><b>Figura 5.</b> Grafo de espera da execução oficial: o ciclo fechado é o deadlock.</figcaption></figure>
+  </div>
+  <p>O atraso de 10 ms entre os dois <code>Lock</code> não cria o defeito: ele apenas alarga a janela em que todos seguram o garfo
+  esquerdo. Sem o atraso, o mesmo código travou em <b>17 de 50</b> execuções (seção 4.13): o defeito existe
+  sempre, mas só se manifesta quando o escalonador produz a intercalação ruim.</p>
+
+  <h3>4.5 Como V2 e V3 evitam deadlock?</h3>
+  <p>As duas quebram a <b>espera circular</b>, por caminhos diferentes.</p>
+  <ul>
+    <li><b>V2:</b> só o dono da mesa pode segurar ou esperar garfos. Um ciclo de espera precisa de pelo menos dois filósofos segurando
+    recursos, e isso nunca acontece. Na prática, os mutexes dos garfos ficam até redundantes.</li>
+    <li><b>V3:</b> suponha um ciclo de espera. Cada filósofo nele segura um garfo e espera outro de número <i>maior</i> (é a regra).
+    Percorrendo o ciclo, os números teriam de crescer a cada passo e voltar ao início, o que é impossível. Logo não há ciclo nem
+    deadlock, e sem limitar quem não disputa garfos.</li>
+  </ul>
+  <p>Evidência: as 90 execuções de V2 e V3 (três cenários de carga e com um único núcleo) terminaram com
+  20 ciclos para cada filósofo.</p>
+  <div class="dois-codigos"><figure class="codigo"><div class="code-tit">v2-mesa/main.go · mesa global</div><pre class="highlight"><span class="kd">var</span><span class="w"> </span><span class="nx">garfos</span><span class="w"> </span><span class="p">[</span><span class="nx">numFilosofos</span><span class="p">]</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">mesa</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">pegarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">esquerdo</span><span class="p">,</span><span class="w"> </span><span class="nx">direito</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nx">numFilosofos</span>
+<span class="w">	</span><span class="nx">mesa</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span><span class="w"> </span><span class="c1">// só um filósofo por vez a partir daqui (fica trancada até soltarGarfos)</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">esquerdo</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">direito</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">soltarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">esquerdo</span><span class="p">,</span><span class="w"> </span><span class="nx">direito</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nx">numFilosofos</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">direito</span><span class="p">].</span><span class="nx">Unlock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">esquerdo</span><span class="p">].</span><span class="nx">Unlock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">mesa</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></figure><figure class="codigo"><div class="code-tit">v3-ordenacao/main.go · pegarGarfos</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="nx">pegarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">primeiro</span><span class="p">,</span><span class="w"> </span><span class="nx">segundo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nx">numFilosofos</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">primeiro</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">segundo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">primeiro</span><span class="p">,</span><span class="w"> </span><span class="nx">segundo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">segundo</span><span class="p">,</span><span class="w"> </span><span class="nx">primeiro</span><span class="w"> </span><span class="c1">// só o F4 inverte: g0 antes de g4</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">primeiro</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">garfos</span><span class="p">[</span><span class="nx">segundo</span><span class="p">].</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></figure></div>
+
+  <h3>4.6 Existe possibilidade de starvation? Justifique.</h3>
+  <p><b>Na V0, não:</b> a ordem é fixa. <b>Na V2 e na V3, sim em teoria</b>, porque nenhuma das duas garante a vez de cada filósofo:
+  um mutex não é uma fila, e na V3 dois vizinhos podem se alternar e deixar o do meio sempre encontrando um garfo ocupado.
+  <b>Na prática, não observamos starvation:</b> todos completaram os 20 ciclos e a espera foi parecida entre os filósofos
+  (Figura 6). Na V2, as médias por filósofo ficaram entre 98,5 ms e
+  100,4 ms; o modo starvation do mutex do Go aproxima a mesa de uma fila. Na V3, ficaram entre
+  20,6 ms (F3) e 29,5 ms (F4), e a maior espera de um filósofo foi
+  151,5 ms, cerca de 5,0 refeições. F0 e F4 esperam um pouco
+  mais porque os dois começam pelo mesmo garfo, g0, efeito direto da regra de ordenação. A maior espera isolada da V3 não é
+  starvation em regime: é a espera da largada do jantar, explicada em 4.8 e 4.9.</p>
+  <div class="lado">
+    <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 376 216" width="100%" role="img" aria-label="Espera por filósofo" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="376" height="216" rx="6" fill="#ffffff"/><text x="0.0" y="12.0" fill="#0b0b0b" text-anchor="start" font-size="11" font-weight="600" >Espera por filósofo: média (coluna) e maior (ponto)</text><rect x="40" y="20" width="10" height="10" rx="2" fill="#eb6834"/><text x="54.0" y="29.0" fill="#52514e" text-anchor="start" font-size="9.5" font-weight="400" >V2</text><rect x="86" y="20" width="10" height="10" rx="2" fill="#1baf7a"/><text x="100.0" y="29.0" fill="#52514e" text-anchor="start" font-size="9.5" font-weight="400" >V3</text><line x1="40" x2="354" y1="160.0" y2="160.0" stroke="#c3c2b7" stroke-width="1"/><text x="34.0" y="163.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >0</text><line x1="40" x2="354" y1="145.0" y2="145.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="148.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >20</text><line x1="40" x2="354" y1="130.0" y2="130.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="133.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >40</text><line x1="40" x2="354" y1="115.0" y2="115.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="118.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >60</text><line x1="40" x2="354" y1="100.0" y2="100.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="103.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >80</text><line x1="40" x2="354" y1="85.0" y2="85.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="88.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >100</text><line x1="40" x2="354" y1="70.0" y2="70.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="73.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >120</text><line x1="40" x2="354" y1="55.0" y2="55.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="58.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >140</text><line x1="40" x2="354" y1="40.0" y2="40.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="43.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >160</text><text x="8.0" y="34.0" fill="#898781" text-anchor="start" font-size="9" font-weight="400" >ms</text><path d="M49.0,160.0 V90.2 Q49.0,86.2 53.0,86.2 H65.0 Q69.0,86.2 69.0,90.2 V160.0 Z" fill="#eb6834"/><circle cx="59.0" cy="68.3" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><path d="M73.0,160.0 V142.3 Q73.0,138.3 77.0,138.3 H89.0 Q93.0,138.3 93.0,142.3 V160.0 Z" fill="#1baf7a"/><circle cx="83.0" cy="91.8" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="71.0" y="174.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >F0</text><path d="M111.0,160.0 V88.7 Q111.0,84.7 115.0,84.7 H127.0 Q131.0,84.7 131.0,88.7 V160.0 Z" fill="#eb6834"/><circle cx="121.0" cy="66.8" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><path d="M135.0,160.0 V147.4 Q135.0,143.4 139.0,143.4 H151.0 Q155.0,143.4 155.0,147.4 V160.0 Z" fill="#1baf7a"/><circle cx="145.0" cy="113.1" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="133.0" y="174.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >F1</text><path d="M173.0,160.0 V89.0 Q173.0,85.0 177.0,85.0 H189.0 Q193.0,85.0 193.0,89.0 V160.0 Z" fill="#eb6834"/><circle cx="183.0" cy="66.2" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><path d="M197.0,160.0 V147.9 Q197.0,143.9 201.0,143.9 H213.0 Q217.0,143.9 217.0,147.9 V160.0 Z" fill="#1baf7a"/><circle cx="207.0" cy="114.1" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="195.0" y="174.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >F2</text><path d="M235.0,160.0 V88.8 Q235.0,84.8 239.0,84.8 H251.0 Q255.0,84.8 255.0,88.8 V160.0 Z" fill="#eb6834"/><circle cx="245.0" cy="67.1" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><path d="M259.0,160.0 V148.6 Q259.0,144.6 263.0,144.6 H275.0 Q279.0,144.6 279.0,148.6 V160.0 Z" fill="#1baf7a"/><circle cx="269.0" cy="114.5" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="257.0" y="174.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >F3</text><path d="M297.0,160.0 V89.4 Q297.0,85.4 301.0,85.4 H313.0 Q317.0,85.4 317.0,89.4 V160.0 Z" fill="#eb6834"/><circle cx="307.0" cy="68.1" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/><path d="M321.0,160.0 V141.9 Q321.0,137.9 325.0,137.9 H337.0 Q341.0,137.9 341.0,141.9 V160.0 Z" fill="#1baf7a"/><circle cx="331.0" cy="46.4" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/><text x="319.0" y="174.0" fill="#0b0b0b" text-anchor="middle" font-size="10" font-weight="600" >F4</text></svg><figcaption><b>Figura 6.</b> Espera por filósofo (média de 6 rodadas; ponto = maior
+    espera). Nenhum filósofo foi sistematicamente preterido.</figcaption></figure>
+    <div><p>Com só 20 ciclos e tempos fixos, a carga é regular e favorece a justiça. Uma garantia formal exigiria um mecanismo com
+    ordem de chegada explícita, como um "garçom" que atende por fila de senhas.</p>
+    <p>Na V2, as colunas são praticamente iguais: a mesa funciona como uma fila. Na V3, F1, F2 e F3 esperam menos que F0 e F4, os dois
+    que disputam o g0 como primeiro garfo. O ponto alto do F4 é a espera da largada.</p></div>
+  </div>
+
+  <h3>4.7 Qual solução apresentou maior tempo total de execução?</h3>
+  <p>Desconsiderando a V1, que nunca termina, a <b>V0</b>: 5,12 s em média, contra 5 s teóricos. Era o esperado, porque
+  ela soma todos os tempos de pensar e comer. Entre as concorrentes, a <b>V2</b> foi a mais lenta (3,08 s),
+  1,90× o tempo da V3.</p>
+
+  <h3>4.8 Qual solução apresentou maior tempo de espera pelos recursos?</h3>
+  <p><b>Na média, a V2:</b> 99,7 ms, contra 24,5 ms na V3 (V0: zero; V1: infinita). O número da V2 bate com um
+  cálculo simples: como a mesa atende um por vez, em regime cada filósofo volta à mesa a cada 5 × 30 = 150 ms; descontando 30 ms
+  comendo e 20 ms pensando, sobram cerca de 100 ms de espera. A maior espera da V2 (125,0 ms) corresponde a aguardar os
+  outros quatro comerem: 4 × 30 = 120 ms.</p>
+  <p><b>Na maior espera isolada, a V3:</b> 151,5 ms. Ela vem da largada: na execução oficial, o F4 só comeu pela
+  primeira vez 151,5 ms depois de ficar com fome, preso na corrente de espera descrita em 4.9. Passada a
+  largada, as esperas da V3 caem para a faixa de 20 a 30 ms. Em resumo: a V2 faz todos esperarem muito o tempo todo; a V3 faz
+  poucos esperarem bastante, e só no começo.</p>
+
+  <h3>4.9 Quantos filósofos conseguiram comer simultaneamente em cada solução?</h3>
+  <p>V0: 1 · V1: 0 (trava antes da primeira refeição) · V2: 1 · V3: 2. Dois é o limite teórico: cada refeição
+  ocupa 2 dos 5 garfos e dois vizinhos nunca comem juntos. A Figura 7 mostra a diferença no tempo: na V2 as refeições formam uma
+  fila contínua, sem sobreposição; na V3, passada a largada, aparecem quase sempre dois filósofos não vizinhos comendo em paralelo.</p>
+  <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 736 287" width="100%" role="img" aria-label="Quem está comendo ao longo do tempo" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="736" height="287" rx="6" fill="#ffffff"/><text x="0.0" y="12.0" fill="#0b0b0b" text-anchor="start" font-size="11" font-weight="600" >Quem está comendo nos primeiros 600 ms (1ª execução de cada versão)</text><text x="0.0" y="56.5" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >V0 · sequencial</text><line x1="92.0" x2="92.0" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="194.3" x2="194.3" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="296.7" x2="296.7" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="399.0" x2="399.0" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="501.3" x2="501.3" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="603.7" x2="603.7" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><line x1="706.0" x2="706.0" y1="24" y2="79" stroke="#e1e0d9" stroke-width="1"/><text x="86.0" y="32.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F0</text><rect x="113.7" y="25.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="375.7" y="25.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="636.5" y="25.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><text x="86.0" y="43.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F1</text><rect x="166.1" y="36.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="427.9" y="36.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="688.3" y="36.5" width="16.7" height="8" rx="2" fill="#2a78d6"/><text x="86.0" y="54.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F2</text><rect x="218.6" y="47.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="479.9" y="47.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><text x="86.0" y="65.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F3</text><rect x="270.6" y="58.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="532.6" y="58.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><text x="86.0" y="76.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F4</text><rect x="323.0" y="69.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><rect x="584.7" y="69.5" width="29.7" height="8" rx="2" fill="#2a78d6"/><text x="0.0" y="133.5" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >V2 · mesa global</text><line x1="92.0" x2="92.0" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="194.3" x2="194.3" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="296.7" x2="296.7" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="399.0" x2="399.0" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="501.3" x2="501.3" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="603.7" x2="603.7" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><line x1="706.0" x2="706.0" y1="101" y2="156" stroke="#e1e0d9" stroke-width="1"/><text x="86.0" y="109.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F0</text><rect x="113.0" y="102.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="268.1" y="102.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="423.6" y="102.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="579.0" y="102.5" width="29.7" height="8" rx="2" fill="#eb6834"/><text x="86.0" y="120.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F1</text><rect x="205.8" y="113.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="361.2" y="113.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="516.4" y="113.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="672.7" y="113.5" width="29.7" height="8" rx="2" fill="#eb6834"/><text x="86.0" y="131.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F2</text><rect x="237.0" y="124.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="392.6" y="124.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="547.6" y="124.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="703.7" y="124.5" width="1.3" height="8" rx="2" fill="#eb6834"/><text x="86.0" y="142.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F3</text><rect x="144.3" y="135.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="299.2" y="135.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="454.6" y="135.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="610.3" y="135.5" width="29.7" height="8" rx="2" fill="#eb6834"/><text x="86.0" y="153.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F4</text><rect x="175.0" y="146.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="330.0" y="146.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="485.5" y="146.5" width="29.7" height="8" rx="2" fill="#eb6834"/><rect x="641.4" y="146.5" width="29.7" height="8" rx="2" fill="#eb6834"/><text x="0.0" y="210.5" fill="#0b0b0b" text-anchor="start" font-size="10" font-weight="600" >V3 · ordenação</text><line x1="92.0" x2="92.0" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="194.3" x2="194.3" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="296.7" x2="296.7" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="399.0" x2="399.0" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="501.3" x2="501.3" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="603.7" x2="603.7" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><line x1="706.0" x2="706.0" y1="178" y2="233" stroke="#e1e0d9" stroke-width="1"/><text x="86.0" y="186.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F0</text><rect x="206.1" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="330.1" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="454.0" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="516.1" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="609.2" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="671.5" y="179.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><text x="86.0" y="197.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F1</text><rect x="175.1" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="237.1" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="299.0" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="360.9" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="422.9" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="485.1" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="578.0" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="640.5" y="190.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><text x="86.0" y="208.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F2</text><rect x="144.1" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="206.1" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="268.1" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="330.1" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="391.9" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="454.0" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="547.3" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="609.2" y="201.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="702.4" y="201.5" width="2.6" height="8" rx="2" fill="#1baf7a"/><text x="86.0" y="219.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F3</text><rect x="113.1" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="175.1" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="237.1" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="299.0" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="360.9" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="422.9" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="516.1" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="578.0" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="671.5" y="212.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><text x="86.0" y="230.5" fill="#898781" text-anchor="end" font-size="8.5" font-weight="400" >F4</text><rect x="268.1" y="223.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="391.9" y="223.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="485.1" y="223.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="547.3" y="223.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="640.5" y="223.5" width="29.7" height="8" rx="2" fill="#1baf7a"/><rect x="702.4" y="223.5" width="2.6" height="8" rx="2" fill="#1baf7a"/><text x="92.0" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >0 ms</text><text x="194.3" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >100 ms</text><text x="296.7" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >200 ms</text><text x="399.0" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >300 ms</text><text x="501.3" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >400 ms</text><text x="603.7" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >500 ms</text><text x="706.0" y="255.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >600 ms</text></svg><figcaption><b>Figura 7.</b> Refeições ao longo do tempo, reconstruídas da linha do tempo impressa pelos
+  programas. A V0 percorre um filósofo por vez com pausas para pensar; a V2 elimina as pausas mas não a fila; a V3 forma pares
+  depois de uma largada em fila.</figcaption></figure>
+  <p><b>Um efeito que só a linha do tempo mostra.</b> Como todos começam a pensar no mesmo instante, todos ficam com fome juntos.
+  Na V3, F0 pega g0, F1 pega g1, F2 pega g2 e F3 pega g3; o F4 tenta g0 (seu primeiro garfo pela regra) e fica bloqueado sem
+  segurar nada. Assim o F3 consegue g4 e come sozinho, enquanto F2, F1 e F0 formam uma <b>corrente de espera</b>, cada um segurando
+  o garfo de que o vizinho precisa. A corrente se desfaz um elo por vez, e só em 81,2 ms aparece o primeiro par comendo junto.
+  Ou seja: a ordenação elimina o <i>ciclo</i>, mas não a <i>posse e espera</i>, que ainda pode serializar filósofos por um tempo.
+  É por isso que a V3 fica um pouco acima do 1,5 s teórico e varia mais entre execuções.</p>
+
+  <h3>4.10 Qual foi o impacto da sincronização excessiva da V2?</h3>
+  <p>No cenário base, a mesa global deixou o programa 90% mais lento que a V3, multiplicou a espera
+  média por 4,1 e reduziu a concorrência máxima de 2 para 1. O impacto, porém, depende da carga. Rodamos
+  mais dois cenários mantendo pensar + comer = 50 ms (por isso a V0 leva sempre cerca de 5 s):</p>
+  <div class="lado lado-cen">
+    <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 376 226" width="100%" role="img" aria-label="Tempo total por cenário de carga" font-family="Segoe UI, system-ui, sans-serif" font-size="10"><rect x="-8" y="-8" width="376" height="226" rx="6" fill="#ffffff"/><text x="0.0" y="12.0" fill="#0b0b0b" text-anchor="start" font-size="11" font-weight="600" >Tempo total por cenário (pensar / comer)</text><rect x="40" y="20" width="10" height="10" rx="2" fill="#2a78d6"/><text x="54.0" y="29.0" fill="#52514e" text-anchor="start" font-size="9.5" font-weight="400" >V0</text><rect x="86" y="20" width="10" height="10" rx="2" fill="#eb6834"/><text x="100.0" y="29.0" fill="#52514e" text-anchor="start" font-size="9.5" font-weight="400" >V2</text><rect x="132" y="20" width="10" height="10" rx="2" fill="#1baf7a"/><text x="146.0" y="29.0" fill="#52514e" text-anchor="start" font-size="9.5" font-weight="400" >V3</text><line x1="40" x2="354" y1="170.0" y2="170.0" stroke="#c3c2b7" stroke-width="1"/><text x="34.0" y="173.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >0 s</text><line x1="40" x2="354" y1="148.3" y2="148.3" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="151.3" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >1 s</text><line x1="40" x2="354" y1="126.7" y2="126.7" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="129.7" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >2 s</text><line x1="40" x2="354" y1="105.0" y2="105.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="108.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >3 s</text><line x1="40" x2="354" y1="83.3" y2="83.3" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="86.3" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >4 s</text><line x1="40" x2="354" y1="61.7" y2="61.7" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="64.7" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >5 s</text><line x1="40" x2="354" y1="40.0" y2="40.0" stroke="#e1e0d9" stroke-width="1"/><text x="34.0" y="43.0" fill="#898781" text-anchor="end" font-size="9" font-weight="400" >6 s</text><path d="M55.7,170.0 V63.4 Q55.7,59.4 59.7,59.4 H73.7 Q77.7,59.4 77.7,63.4 V170.0 Z" fill="#2a78d6"/><text x="66.7" y="56.4" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >5,1</text><path d="M80.7,170.0 V150.2 Q80.7,146.2 84.7,146.2 H98.7 Q102.7,146.2 102.7,150.2 V170.0 Z" fill="#eb6834"/><text x="91.7" y="143.2" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >1,1</text><path d="M105.7,170.0 V151.3 Q105.7,147.3 109.7,147.3 H123.7 Q127.7,147.3 127.7,151.3 V170.0 Z" fill="#1baf7a"/><text x="116.7" y="144.3" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >1,0</text><text x="91.7" y="184.0" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="600" >Pouca disputa</text><text x="91.7" y="196.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >40 / 10 ms</text><path d="M159.0,170.0 V63.1 Q159.0,59.1 163.0,59.1 H177.0 Q181.0,59.1 181.0,63.1 V170.0 Z" fill="#2a78d6"/><text x="170.0" y="56.1" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >5,1</text><path d="M184.0,170.0 V107.3 Q184.0,103.3 188.0,103.3 H202.0 Q206.0,103.3 206.0,107.3 V170.0 Z" fill="#eb6834"/><text x="195.0" y="100.3" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >3,1</text><path d="M209.0,170.0 V138.9 Q209.0,134.9 213.0,134.9 H227.0 Q231.0,134.9 231.0,138.9 V170.0 Z" fill="#1baf7a"/><text x="220.0" y="131.9" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >1,6</text><text x="195.0" y="184.0" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="600" >Base</text><text x="195.0" y="196.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >20 / 30 ms</text><path d="M262.3,170.0 V63.1 Q262.3,59.1 266.3,59.1 H280.3 Q284.3,59.1 284.3,63.1 V170.0 Z" fill="#2a78d6"/><text x="273.3" y="56.1" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >5,1</text><path d="M287.3,170.0 V85.8 Q287.3,81.8 291.3,81.8 H305.3 Q309.3,81.8 309.3,85.8 V170.0 Z" fill="#eb6834"/><text x="298.3" y="78.8" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >4,1</text><path d="M312.3,170.0 V128.2 Q312.3,124.2 316.3,124.2 H330.3 Q334.3,124.2 334.3,128.2 V170.0 Z" fill="#1baf7a"/><text x="323.3" y="121.2" fill="#0b0b0b" text-anchor="middle" font-size="8.5" font-weight="600" >2,1</text><text x="298.3" y="184.0" fill="#0b0b0b" text-anchor="middle" font-size="9.5" font-weight="600" >Muita disputa</text><text x="298.3" y="196.0" fill="#898781" text-anchor="middle" font-size="9" font-weight="400" >10 / 40 ms</text></svg><figcaption><b>Figura 8.</b> Tempo total médio (5 execuções por cenário; base: 30).</figcaption></figure>
+    <div><table class="mini cen"><thead><tr><th>Cenário</th><th>V0</th><th>V2</th><th>V3</th><th>V2÷V3</th><th>Espera V2</th><th>Espera V3</th></tr></thead><tbody><tr><th>Pouca disputa<span class='sub'>40 / 10 ms</span></th><td class='num'>5,10 s</td><td class='num'>1,10 s</td><td class='num'>1,05 s</td><td class='num'>1,05×</td><td class='num'>2,7 ms</td><td class='num'>0,4 ms</td></tr><tr><th>Base<span class='sub'>20 / 30 ms</span></th><td class='num'>5,12 s</td><td class='num'>3,08 s</td><td class='num'>1,62 s</td><td class='num'>1,90×</td><td class='num'>99,7 ms</td><td class='num'>24,5 ms</td></tr><tr><th>Muita disputa<span class='sub'>10 / 40 ms</span></th><td class='num'>5,12 s</td><td class='num'>4,07 s</td><td class='num'>2,11 s</td><td class='num'>1,93×</td><td class='num'>148,2 ms</td><td class='num'>48,9 ms</td></tr></tbody></table>
+      <p class="nota">Com <b>pouca disputa</b> (comer é curto), a mesa quase nunca está ocupada e a V2 fica perto da V3
+      (1,05×). Com <b>muita disputa</b>, a fila da mesa domina: a V2 leva
+      4,07 s, mais perto da V0 (5,12 s) do que da V3 (2,11 s).</p></div>
+  </div>
+  <p>Conclusão: o custo da sincronização excessiva é proporcional ao quanto a seção serializada pesa no trabalho total. Ele é baixo
+  quando a seção crítica é curta e cresce até anular o paralelismo quando ela domina.</p>
+
+  <h3>4.11 A solução com maior sincronização foi necessariamente a de melhor desempenho?</h3>
+  <p><b>Não, foi o contrário.</b> V2 e V3 são igualmente corretas (nenhuma trava), mas a V2 sincroniza mais: tranca três mutexes por
+  refeição em vez de dois, e um deles bloqueia todos os filósofos, inclusive os que não disputam garfo nenhum. O resultado foi
+  1,90× mais tempo e 4,1× mais espera. Sincronização garante corretude, mas cada
+  lock a mais é uma fila a mais. A melhor solução sincroniza só o necessário: protege cada garfo (granularidade fina) e evita o
+  deadlock com uma regra de ordem, sem bloquear quem não compete.</p>
+
+  <h3>4.12 Qual é a relação entre o grau de concorrência observado e o tempo total de execução?</h3>
+  <p>Inversa. O trabalho de comer é fixo: 100 refeições de 30 ms, ou 3.000 ms. O que muda entre as versões é quantas refeições
+  acontecem ao mesmo tempo. A <b>concorrência média</b> (3.000 ms divididos pelo tempo do jantar) é o número médio de filósofos
+  comendo a cada instante; a <b>ocupação</b> compara esse número com o máximo que a versão permite.</p>
+  <table class="mini"><thead><tr><th>Versão</th><th>Máx. comendo junto</th><th>Concorrência média</th><th>Ocupação dos lugares</th><th>Tempo total</th><th>Ganho sobre a V0</th></tr></thead><tbody><tr><th>V0</th><td class='num'>1</td><td class='num'>0,59</td><td class='num'>59%</td><td class='num'>5,12 s</td><td class='num'>1,00×</td></tr><tr><th>V2</th><td class='num'>1</td><td class='num'>0,97</td><td class='num'>97%</td><td class='num'>3,08 s</td><td class='num'>1,66×</td></tr><tr><th>V3</th><td class='num'>2</td><td class='num'>1,85</td><td class='num'>93%</td><td class='num'>1,62 s</td><td class='num'>3,16×</td></tr></tbody></table>
+  <p>Duas leituras saem da tabela. Primeiro, V2 e V3 mantêm seus "lugares" à mesa quase sempre ocupados
+  (97% e 93%): a diferença de tempo entre elas vem
+  inteiramente de quantos lugares existem, 1 ou 2. Dobrar a concorrência permitida reduziu o tempo quase à metade. Segundo, a V0
+  tem concorrência abaixo de 1 porque, enquanto um filósofo pensa, ninguém come. O ganho tem dois tetos: o físico (no máximo 2
+  comendo ao mesmo tempo) e o de cada filósofo, que precisa de pelo menos 20 × (20 + 30) ms = 1 s para os próprios ciclos. No
+  cenário de pouca disputa é esse segundo teto que manda, e por isso V2 e V3 se aproximam (Figura 8).</p>
+
+  <h3>4.13 O deadlock da V1 acontece sem o atraso artificial?</h3>
+  <p>Sim, em parte das execuções. Sem o atraso, a V1 travou em <b>17 de 50</b> execuções
+  (34%); com o atraso, em 10 de 10. A frequência também oscila entre baterias:
+  num teste exploratório anterior, a mesma versão sem atraso travou em apenas 2 de 20 execuções.
+  Em todas as execuções que travaram, o deadlock aconteceu no primeiro ciclo, antes de qualquer refeição. É o momento de maior risco: como todos começam a pensar juntos e pensam pelo mesmo tempo, todos ficam com fome no mesmo instante e pegam o garfo esquerdo quase simultaneamente. Depois da largada, as refeições se desencontram e a intercalação fatal fica improvável.</p>
+  <p>É o comportamento típico de defeitos de concorrência: o programa passa em vários testes e falha de repente, conforme a ordem
+  escolhida pelo escalonador. Por isso a análise das quatro condições é mais confiável que "testar e ver se trava".</p>
+
+  <h3>4.14 Mais núcleos deixam o jantar mais rápido?</h3>
+  <table class="mini"><thead><tr><th>Versão</th><th>GOMAXPROCS = 20 (padrão)</th><th>GOMAXPROCS = 1</th><th>Diferença</th><th>Máx. comendo (1 núcleo)</th></tr></thead><tbody><tr><th>V0</th><td class='num'>5,12 s</td><td class='num'>5,11 s</td><td class='num'>−0,2%</td><td class='num'>1</td></tr><tr><th>V2</th><td class='num'>3,08 s</td><td class='num'>3,07 s</td><td class='num'>−0,4%</td><td class='num'>1</td></tr><tr><th>V3</th><td class='num'>1,62 s</td><td class='num'>1,55 s</td><td class='num'>−4,6%</td><td class='num'>2</td></tr></tbody></table>
+  <p>Não. Com <code>GOMAXPROCS=1</code>, um único núcleo executa todas as goroutines e nenhuma versão ficou mais lenta; a V3
+  manteve 2 filósofos comendo ao mesmo tempo. Isso acontece porque pensar e comer são <code>Sleep</code>: as goroutines
+  passam quase todo o tempo bloqueadas, sem usar CPU. O gargalo é a disputa pelos garfos, não o processador. É a diferença entre
+  concorrência (estruturar o programa em tarefas independentes) e paralelismo (executá-las ao mesmo tempo em núcleos distintos).</p>
+  <p>A V3 com um núcleo foi até um pouco mais rápida e bem mais estável (desvio padrão de 3,9 ms contra 57,2 ms).
+  Uma explicação provável é que, com um só núcleo, as goroutines acordam numa ordem mais regular e a corrente de espera da largada se
+  desfaz sempre do mesmo jeito. Como esse teste teve 5 execuções por versão, a diferença deve ser lida como indicativa.</p>
+
+  <h3>4.15 As medições são confiáveis?</h3>
+  <ul>
+    <li><b>Repetição:</b> 30 execuções por versão no cenário base (o enunciado pede 5), com desvio padrão de 15 ms (V0),
+    8 ms (V2) e 57 ms (V3). A V3 varia mais porque o pareamento de quem come junto muda a cada execução.</li>
+    <li><b>Sobrecusto previsível:</b> a V0 levou 117 ms a mais que os 5 s teóricos, cerca de
+    0,59 ms por <code>Sleep</code> (são 200), o custo de acordar uma goroutine no Windows.</li>
+    <li><b>Sem condições de corrida:</b> V0, V2 e V3 rodaram com o detector de corrida do Go (<code>go run -race</code>) sem nenhum
+    alerta. Com <code>-race</code>, a V1 não aborta: o detector desativa a detecção automática de deadlock e o programa fica parado em
+    silêncio, como aconteceria num sistema real.</li>
+    <li><b>Impressão:</b> a linha do tempo só é impressa na 1ª execução de cada rodada. Na V0 e na V2 a diferença entre a 1ª
+    execução e as outras foi desprezível (+3,4 ms e
+    −7,2 ms). Na V3, a 1ª execução foi em média 61,4 ms mais lenta, da ordem do
+    próprio desvio padrão da versão (57,2 ms); como só 6 das 30 execuções imprimem, o efeito na média da V3 é de cerca de
+    12 ms.</li>
+    <li><b>Limitações:</b> uma única máquina e um único sistema operacional; tempos de pensar e comer fixos (sem aleatoriedade), o que
+    torna o comportamento mais regular do que num sistema real.</li>
+  </ul>
+
+  <h3>4.16 Conclusão</h3>
+  <p>Os dados confirmam a teoria em todos os pontos. A versão ingênua (V1) é concorrente mas incorreta: as quatro condições de Coffman
+  produzem deadlock, às vezes raro, mas sempre possível. Resolver o deadlock com um lock global (V2) devolve a corretude ao preço da
+  concorrência: o jantar vira uma fila, a espera é a maior de todas e o desempenho fica entre a versão sequencial e a ideal, mais
+  perto da sequencial quanto maior a disputa. Resolver o mesmo problema quebrando só a espera circular (V3) mantém a granularidade fina,
+  atinge o máximo teórico de dois filósofos comendo ao mesmo tempo e entrega o menor tempo (1,62 s, 3,2×
+  mais rápido que a V0). A lição central é que a quantidade de sincronização não mede a qualidade de uma solução: o melhor desempenho
+  veio de sincronizar menos, mas no lugar certo.</p>
+
+  <h2>5. Ambiente de execução e reprodução</h2>
+  <table class="mini amb">
+    <tbody>
+      <tr><th>Linguagem</th><td>Go 1.27.0 (windows/amd64); módulo exige Go ≥ 1.22</td></tr>
+      <tr><th>Sistema operacional</th><td>Windows 11 Home Single Language</td></tr>
+      <tr><th>Processador</th><td>13th Gen Intel Core i7-13700H</td></tr>
+      <tr><th>Núcleos</th><td>14 núcleos físicos, 20 lógicos (<code>runtime.NumCPU()</code> = 20, <code>GOMAXPROCS</code> = 20)</td></tr>
+      <tr><th>Execução</th><td><code>go run ./v0-sequencial</code> · <code>go run ./v1-deadlock</code> · <code>go run ./v2-mesa</code> ·
+        <code>go run ./v3-ordenacao</code> (na raiz do repositório)</td></tr>
+      <tr><th>Compilação</th><td><code>go build -o v3.exe ./v3-ordenacao</code> (idem para as outras); verificação: <code>go vet ./...</code>,
+        <code>gofmt -l .</code>, <code>go run -race</code></td></tr>
+      <tr><th>Experimentos</th><td><code>py relatorio/experimentos.py</code> (gera <code>resultados/*.csv</code>) e
+        <code>py relatorio/gerar_relatorio.py</code> (gera este PDF)</td></tr>
+      <tr><th>Repositório</th><td><a href="https://github.com/eduardolobocode/fppd-t1-filosofos">https://github.com/eduardolobocode/fppd-t1-filosofos</a></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="apendice">
+  <h2>Apêndice A · Código-fonte (trechos)</h2>
+  <p class="nota">Código completo e formatado com <code>gofmt</code> no repositório. Os trechos abaixo são extraídos automaticamente dos
+  arquivos <code>main.go</code>.</p>
+  <figure class="codigo"><div class="code-tit">umCiclo · igual nas quatro versões</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="nx">umCiclo</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">ciclo</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">metricas</span><span class="p">,</span><span class="w"> </span><span class="nx">mostrar</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">imprimir</span><span class="p">(</span><span class="nx">mostrar</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;P%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ciclo</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">tempoPensar</span><span class="p">)</span>
+
+<span class="w">	</span><span class="nx">inicioEspera</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">pegarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">registrarEspera</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">inicioEspera</span><span class="p">))</span>
+
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">comecouComer</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">imprimir</span><span class="p">(</span><span class="nx">mostrar</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;C%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ciclo</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">tempoComer</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">terminouComer</span><span class="p">()</span><span class="w"> </span><span class="c1">// antes de soltar os garfos, para o vizinho não começar antes da contagem baixar</span>
+
+<span class="w">	</span><span class="nx">soltarGarfos</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">ciclos</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="o">++</span>
+<span class="p">}</span>
+</pre></figure>
+  <figure class="codigo"><div class="code-tit">v0-sequencial/main.go · jantar (laço sequencial)</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="nx">jantar</span><span class="p">(</span><span class="nx">mostrar</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="nx">resultado</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">metricas</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">inicio</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">inicioJantar</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">inicio</span>
+
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">ciclo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">ciclo</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">numCiclos</span><span class="p">;</span><span class="w"> </span><span class="nx">ciclo</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numFilosofos</span><span class="p">;</span><span class="w"> </span><span class="nx">id</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">umCiclo</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">ciclo</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">,</span><span class="w"> </span><span class="nx">mostrar</span><span class="p">)</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">resumo</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">inicio</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></figure>
+  <figure class="codigo"><div class="code-tit">jantar · uma goroutine por filósofo (V1, V2, V3)</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="nx">jantar</span><span class="p">(</span><span class="nx">mostrar</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="nx">resultado</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">metricas</span><span class="p">{}</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="w">	</span><span class="nx">inicio</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">inicioJantar</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">inicio</span>
+
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numFilosofos</span><span class="p">;</span><span class="w"> </span><span class="nx">id</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">		</span><span class="k">go</span><span class="w"> </span><span class="nx">filosofo</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">,</span><span class="w"> </span><span class="nx">mostrar</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">resumo</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">inicio</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></figure>
+  <figure class="codigo"><div class="code-tit">métricas · contagem de quem está comendo</div><pre class="highlight"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">metricas</span><span class="p">)</span><span class="w"> </span><span class="nx">comecouComer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">comendo</span><span class="o">++</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">comendo</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">maxComendo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">m</span><span class="p">.</span><span class="nx">maxComendo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">comendo</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">metricas</span><span class="p">)</span><span class="w"> </span><span class="nx">terminouComer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">comendo</span><span class="o">--</span>
+<span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></figure>
+</section>
+</body></html>
