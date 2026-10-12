@@ -1,0 +1,123 @@
+V1 - Versão concorrente sujeita a deadlock
+Go go1.27.0 | windows/amd64 | 20 núcleos lógicos | GOMAXPROCS=20
+5 filósofos | 20 ciclos | pensar 20ms | comer 30ms | atraso entre garfos 10ms
+
+P = pensando, C = comendo, número = ciclo
+Cada filósofo pega o garfo esquerdo e depois o direito.
+
+     0.0 ms  F4: P1
+     0.0 ms  F0: P1
+     0.0 ms  F1: P1
+     0.0 ms  F2: P1
+     0.0 ms  F3: P1
+    20.6 ms  F0: pegou g0 (esquerdo)
+    20.6 ms  F3: pegou g3 (esquerdo)
+    20.6 ms  F2: pegou g2 (esquerdo)
+    20.6 ms  F1: pegou g1 (esquerdo)
+    20.6 ms  F4: pegou g4 (esquerdo)
+    31.1 ms  F0: tentando pegar g1 (direito)...
+    31.1 ms  F2: tentando pegar g3 (direito)...
+    31.1 ms  F3: tentando pegar g4 (direito)...
+    31.1 ms  F4: tentando pegar g0 (direito)...
+    31.1 ms  F1: tentando pegar g2 (direito)...
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [sync.WaitGroup.Wait]:
+sync.runtime_SemacquireWaitGroup(0x27fab29c8b70?, 0x0?)
+	C:/Program Files/Go/src/runtime/sema.go:114 +0x2e
+sync.(*WaitGroup).Wait(0x27fab29ae0e0)
+	C:/Program Files/Go/src/sync/waitgroup.go:206 +0x85
+main.jantar(0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:106 +0x187
+main.main()
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:201 +0x2db
+
+goroutine 6 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0x3?, 0x3?, 0x7ff76d4d7ba8?)
+	C:/Program Files/Go/src/runtime/sema.go:95 +0x25
+internal/sync.(*Mutex).lockSlow(0x7ff76d53b628)
+	C:/Program Files/Go/src/internal/sync/mutex.go:149 +0x15a
+internal/sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/internal/sync/mutex.go:70
+sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/sync/mutex.go:46
+main.pegarGarfos(0x1312d00?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:55 +0x18d
+main.umCiclo(0x0, 0x1, 0x27fab2a54000, 0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:76 +0xa5
+main.filosofo(0x0, 0x27fab2a54000, 0x1, 0x0?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:91 +0x65
+created by main.jantar in goroutine 1
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:104 +0xd7
+
+goroutine 7 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0x3?, 0x3?, 0x7ff76d4d7ba8?)
+	C:/Program Files/Go/src/runtime/sema.go:95 +0x25
+internal/sync.(*Mutex).lockSlow(0x7ff76d53b630)
+	C:/Program Files/Go/src/internal/sync/mutex.go:149 +0x15a
+internal/sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/internal/sync/mutex.go:70
+sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/sync/mutex.go:46
+main.pegarGarfos(0x1312d00?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:55 +0x18d
+main.umCiclo(0x1, 0x1, 0x27fab2a54000, 0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:76 +0xa5
+main.filosofo(0x1, 0x27fab2a54000, 0x1, 0x0?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:91 +0x65
+created by main.jantar in goroutine 1
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:104 +0xd7
+
+goroutine 8 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0x3?, 0x3?, 0x7ff76d4d7ba8?)
+	C:/Program Files/Go/src/runtime/sema.go:95 +0x25
+internal/sync.(*Mutex).lockSlow(0x7ff76d53b638)
+	C:/Program Files/Go/src/internal/sync/mutex.go:149 +0x15a
+internal/sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/internal/sync/mutex.go:70
+sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/sync/mutex.go:46
+main.pegarGarfos(0x1312d00?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:55 +0x18d
+main.umCiclo(0x2, 0x1, 0x27fab2a54000, 0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:76 +0xa5
+main.filosofo(0x2, 0x27fab2a54000, 0x1, 0x0?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:91 +0x65
+created by main.jantar in goroutine 1
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:104 +0xd7
+
+goroutine 9 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0x3?, 0x3?, 0x7ff76d4d7ba8?)
+	C:/Program Files/Go/src/runtime/sema.go:95 +0x25
+internal/sync.(*Mutex).lockSlow(0x7ff76d53b640)
+	C:/Program Files/Go/src/internal/sync/mutex.go:149 +0x15a
+internal/sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/internal/sync/mutex.go:70
+sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/sync/mutex.go:46
+main.pegarGarfos(0x1312d00?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:55 +0x18d
+main.umCiclo(0x3, 0x1, 0x27fab2a54000, 0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:76 +0xa5
+main.filosofo(0x3, 0x27fab2a54000, 0x1, 0x0?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:91 +0x65
+created by main.jantar in goroutine 1
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:104 +0xd7
+
+goroutine 10 [sync.Mutex.Lock]:
+internal/sync.runtime_SemacquireMutex(0x3?, 0x3?, 0x7ff76d4d7ba8?)
+	C:/Program Files/Go/src/runtime/sema.go:95 +0x25
+internal/sync.(*Mutex).lockSlow(0x7ff76d53b620)
+	C:/Program Files/Go/src/internal/sync/mutex.go:149 +0x15a
+internal/sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/internal/sync/mutex.go:70
+sync.(*Mutex).Lock(...)
+	C:/Program Files/Go/src/sync/mutex.go:46
+main.pegarGarfos(0x1312d00?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:55 +0x18d
+main.umCiclo(0x4, 0x1, 0x27fab2a54000, 0x1)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:76 +0xa5
+main.filosofo(0x4, 0x27fab2a54000, 0x1, 0x0?)
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:91 +0x65
+created by main.jantar in goroutine 1
+	C:/Users/dudul/OneDrive/Área de Trabalho/fppd-t1-filosofos/v1-deadlock/main.go:104 +0xd7

@@ -1,0 +1,229 @@
+V2 - Versão sem deadlock, com sincronização excessiva (mutex global "mesa")
+Go go1.27.0 | windows/amd64 | 20 núcleos lógicos | GOMAXPROCS=20
+5 filósofos | 20 ciclos | pensar 20ms | comer 30ms | 5 execuções
+
+Linha do tempo da execução 1 (P = pensando, C = comendo, número = ciclo)
+   instante  F0      F1      F2      F3      F4      
+     0.0 ms                                  P1
+     0.0 ms                          P1
+     0.0 ms          P1
+     0.0 ms                  P1
+     0.0 ms  P1
+    20.5 ms  C1
+    51.1 ms  P2
+    51.1 ms                          C1
+    81.1 ms                          P2
+    81.1 ms                                  C1
+   111.2 ms                                  P2
+   111.2 ms          C1
+   141.7 ms          P2
+   141.7 ms                  C1
+   172.1 ms                  P2
+   172.1 ms  C2
+   202.5 ms  P3
+   202.5 ms                          C2
+   232.6 ms                                  C2
+   232.6 ms                          P3
+   263.1 ms                                  P3
+   263.1 ms          C2
+   293.7 ms          P3
+   293.7 ms                  C2
+   324.0 ms                  P3
+   324.0 ms  C3
+   354.3 ms  P4
+   354.3 ms                          C3
+   384.5 ms                          P4
+   384.5 ms                                  C3
+   414.7 ms                                  P4
+   414.7 ms          C3
+   445.2 ms          P4
+   445.2 ms                  C3
+   475.9 ms                  P4
+   475.9 ms  C4
+   506.5 ms  P5
+   506.5 ms                          C4
+   536.9 ms                          P5
+   536.9 ms                                  C4
+   567.5 ms                                  P5
+   567.5 ms          C4
+   597.8 ms          P5
+   597.8 ms                  C4
+   627.9 ms                  P5
+   627.9 ms  C5
+   658.5 ms  P6
+   658.5 ms                          C5
+   688.9 ms                          P6
+   688.9 ms                                  C5
+   719.2 ms                                  P6
+   719.2 ms          C5
+   749.6 ms          P6
+   749.6 ms                  C5
+   780.1 ms                  P6
+   780.1 ms  C6
+   810.4 ms  P7
+   810.4 ms                          C6
+   840.6 ms                                  C6
+   840.6 ms                          P7
+   871.1 ms                                  P7
+   871.1 ms          C6
+   901.6 ms                  C6
+   901.6 ms          P7
+   931.7 ms                  P7
+   931.7 ms  C7
+   962.0 ms  P8
+   962.0 ms                          C7
+   992.3 ms                          P8
+   992.3 ms                                  C7
+  1022.5 ms                                  P8
+  1022.5 ms          C7
+  1052.9 ms          P8
+  1052.9 ms                  C7
+  1082.9 ms                  P8
+  1082.9 ms  C8
+  1113.1 ms  P9
+  1113.1 ms                          C8
+  1143.4 ms                          P9
+  1143.4 ms                                  C8
+  1173.8 ms                                  P9
+  1173.8 ms          C8
+  1204.3 ms          P9
+  1204.3 ms                  C8
+  1234.7 ms                  P9
+  1234.7 ms  C9
+  1265.0 ms  P10
+  1265.0 ms                          C9
+  1295.6 ms                          P10
+  1295.6 ms                                  C9
+  1326.5 ms                                  P10
+  1326.5 ms          C9
+  1356.8 ms          P10
+  1356.8 ms                  C9
+  1387.4 ms                  P10
+  1387.4 ms  C10
+  1417.7 ms  P11
+  1417.7 ms                          C10
+  1448.5 ms                          P11
+  1448.5 ms                                  C10
+  1479.5 ms                                  P11
+  1479.5 ms          C10
+  1509.8 ms          P11
+  1509.8 ms                  C10
+  1540.4 ms                  P11
+  1540.4 ms  C11
+  1571.3 ms  P12
+  1571.3 ms                          C11
+  1601.9 ms                          P12
+  1601.9 ms                                  C11
+  1632.1 ms                                  P12
+  1632.1 ms          C11
+  1662.2 ms          P12
+  1662.2 ms                  C11
+  1693.0 ms                  P12
+  1693.0 ms  C12
+  1723.2 ms  P13
+  1723.2 ms                          C12
+  1754.0 ms                          P13
+  1754.0 ms                                  C12
+  1784.4 ms                                  P13
+  1784.4 ms          C12
+  1814.9 ms          P13
+  1814.9 ms                  C12
+  1845.9 ms                  P13
+  1845.9 ms  C13
+  1876.5 ms  P14
+  1876.5 ms                          C13
+  1907.0 ms                          P14
+  1907.0 ms                                  C13
+  1937.7 ms                                  P14
+  1937.7 ms          C13
+  1968.7 ms          P14
+  1968.7 ms                  C13
+  1999.4 ms                  P14
+  1999.4 ms  C14
+  2030.1 ms  P15
+  2030.1 ms                          C14
+  2061.0 ms                          P15
+  2061.0 ms                                  C14
+  2091.5 ms                                  P15
+  2091.5 ms          C14
+  2122.1 ms          P15
+  2122.1 ms                  C14
+  2152.5 ms                  P15
+  2152.5 ms  C15
+  2184.5 ms  P16
+  2184.5 ms                          C15
+  2215.7 ms                          P16
+  2215.7 ms                                  C15
+  2246.0 ms                                  P16
+  2246.0 ms          C15
+  2276.4 ms          P16
+  2276.4 ms                  C15
+  2307.0 ms                  P16
+  2307.0 ms  C16
+  2337.4 ms  P17
+  2337.4 ms                          C16
+  2368.1 ms                          P17
+  2368.1 ms                                  C16
+  2398.6 ms                                  P17
+  2398.6 ms          C16
+  2429.5 ms          P17
+  2429.5 ms                  C16
+  2460.0 ms                  P17
+  2460.0 ms  C17
+  2490.6 ms  P18
+  2490.6 ms                          C17
+  2520.9 ms                          P18
+  2520.9 ms                                  C17
+  2551.4 ms                                  P18
+  2551.4 ms          C17
+  2581.9 ms          P18
+  2581.9 ms                  C17
+  2612.3 ms                  P18
+  2612.3 ms  C18
+  2642.6 ms  P19
+  2642.6 ms                          C18
+  2673.0 ms                          P19
+  2673.0 ms                                  C18
+  2703.6 ms                                  P19
+  2703.6 ms          C18
+  2734.1 ms          P19
+  2734.1 ms                  C18
+  2764.4 ms                  P19
+  2764.4 ms  C19
+  2794.5 ms  P20
+  2794.5 ms                          C19
+  2824.9 ms                          P20
+  2824.9 ms                                  C19
+  2855.5 ms                                  P20
+  2855.5 ms          C19
+  2886.1 ms          P20
+  2886.1 ms                  C19
+  2916.1 ms                  P20
+  2916.1 ms  C20
+  2946.7 ms                          C20
+  2977.1 ms                                  C20
+  3015.3 ms          C20
+  3046.2 ms                  C20
+
+Execução 1: tempo total   3076.7 ms | espera média   99.6 ms | espera máx  121.2 ms | máx comendo junto 1 | ciclos [20 20 20 20 20]
+Execução 2: tempo total   3075.0 ms | espera média   99.5 ms | espera máx  121.9 ms | máx comendo junto 1 | ciclos [20 20 20 20 20]
+Execução 3: tempo total   3085.9 ms | espera média  100.0 ms | espera máx  122.2 ms | máx comendo junto 1 | ciclos [20 20 20 20 20]
+Execução 4: tempo total   3097.8 ms | espera média  100.4 ms | espera máx  123.9 ms | máx comendo junto 1 | ciclos [20 20 20 20 20]
+Execução 5: tempo total   3071.7 ms | espera média   99.4 ms | espera máx  121.8 ms | máx comendo junto 1 | ciclos [20 20 20 20 20]
+
+Média de 5 execuções: tempo total 3081.4 ms | espera média 99.8 ms | maior espera 123.9 ms | máx comendo junto 1
+
+Espera por filósofo (todas as execuções):
+  F0: média   98.8 ms | máxima  122.2 ms
+  F1: média  100.0 ms | máxima  121.9 ms
+  F2: média  101.1 ms | máxima  121.2 ms
+  F3: média  100.0 ms | máxima  123.9 ms
+  F4: média   98.9 ms | máxima  115.2 ms
+
+CSV (copiar para a planilha):
+versao,execucao,tempo_total_ms,espera_media_ms,espera_max_ms,max_comendo,ciclos
+V2,1,3076.7,99.6,121.2,1,20 20 20 20 20
+V2,2,3075.0,99.5,121.9,1,20 20 20 20 20
+V2,3,3085.9,100.0,122.2,1,20 20 20 20 20
+V2,4,3097.8,100.4,123.9,1,20 20 20 20 20
+V2,5,3071.7,99.4,121.8,1,20 20 20 20 20
